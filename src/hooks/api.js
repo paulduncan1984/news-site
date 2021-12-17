@@ -3,9 +3,9 @@ import axios from "axios";
 
 // URL Breakdown
 const BASE_URL = "http://api.mediastack.com/v1/news";
-// const API_Key = "345803611733cf291d2316a675055baa";
-// const API_Key = `${process.env.REACT_APP_MEDIASTACK_API_KEY}`;
 const COUNTRIES = "gb";
+
+// Hook for SearchResults
 
 function useMediaStackSearchResults(queryText) {
   const [results, setResults] = useState([]);
@@ -33,6 +33,8 @@ function useMediaStackSearchResults(queryText) {
   return { results, isLoaded, error };
 } // EO searchResults
 
+// Hook for default News feed (App.js)
+
 function useDefaultNewsfeed() {
   const [article, setArticle] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -58,4 +60,34 @@ function useDefaultNewsfeed() {
   return { article, isLoaded, error };
 } // EO default newsfeed
 
-export { useMediaStackSearchResults, useDefaultNewsfeed };
+// Hook for CountryFilter
+
+function useCountryFilter(countryCode) {
+  const [country, setCountry] = useState("");
+  const [countryResults, setCountryResults] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setIsLoaded(false);
+    axios
+      .get(BASE_URL, {
+        params: {
+          access_key: process.env.REACT_APP_MEDIASTACK_API_KEY,
+          countries: countryCode,
+        },
+      })
+      .then((res) => {
+        setCountryResults(res.data.data);
+        setIsLoaded(true);
+        setCountry(countryCode);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, [countryCode]);
+
+  return { country, countryResults, isLoaded, error, setCountry };
+}
+
+export { useMediaStackSearchResults, useDefaultNewsfeed, useCountryFilter };

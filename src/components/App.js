@@ -5,6 +5,8 @@ import Nav from "./Nav";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import { useDefaultNewsfeed } from "../hooks/api";
+import CountryFilter from "./CountryFilter";
+import CountryFilterResults from "./CountryFilterResults";
 // Material UI & Styles
 import "../App.css";
 import Grid from "@mui/material/Grid";
@@ -27,6 +29,9 @@ function App() {
             <br />
             <SearchBar />
             <br />
+          </div>
+          <div>
+            <CountryFilter />
           </div>
 
           <Route exact path="/">
@@ -57,6 +62,10 @@ function App() {
           </Route>
 
           <Route path="/search/:queryText" component={SearchResults} />
+          <Route
+            path="/edition/:countryCode"
+            component={CountryFilterResults}
+          />
         </Router>
       </Container>
     </div>
