@@ -32,32 +32,12 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavSearch />
         <div>
-          {/* {user ? (
-            <p>
-              Welcome back, visit your <Link to="/dashboard">Dashboard</Link>
-            </p>
-          ) : (
-            <p>you are not logged in</p>
-          )} */}
+          <NavSearch />
         </div>
+        <br />
+        <br />
         <Container fixed>
-          <div>
-            <br />
-            <SearchBar />
-            <br />
-          </div>
-          <div>
-            <CountryFilter />
-          </div>
-
-          {/* <div>
-            <Link to="/login">Login</Link>
-          </div> */}
-          <hr />
-          <br />
-
           <Route exact path="/">
             <Grid
               container

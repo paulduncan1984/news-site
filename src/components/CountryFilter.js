@@ -38,6 +38,7 @@ function CountryFilter() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        color="inherit"
       >
         Select your edition
       </Button>
