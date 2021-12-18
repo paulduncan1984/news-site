@@ -8,6 +8,8 @@ import { useDefaultNewsfeed } from "../hooks/api";
 import CountryFilter from "./CountryFilter";
 import CountryFilterResults from "./CountryFilterResults";
 import Login from "./Login";
+import NavSearch from "./NavSearch";
+
 // Material UI & Styles
 import "../App.css";
 import Grid from "@mui/material/Grid";
@@ -21,18 +23,26 @@ import { selectUser } from "../Storage/UserSlice";
 
 function App() {
   const user = useSelector(selectUser);
-
   const { article, isLoaded, error } = useDefaultNewsfeed();
 
   if (error) {
     return <div>Error loading your news stream: {error.message}</div>;
   }
+
   return (
-    <div className="App">
-      <Nav />
-      <div>{user ? <Dashboard /> : <Login />}</div>
-      <Container fixed>
-        <Router>
+    <Router>
+      <div className="App">
+        <NavSearch />
+        <div>
+          {/* {user ? (
+            <p>
+              Welcome back, visit your <Link to="/dashboard">Dashboard</Link>
+            </p>
+          ) : (
+            <p>you are not logged in</p>
+          )} */}
+        </div>
+        <Container fixed>
           <div>
             <br />
             <SearchBar />
@@ -42,9 +52,9 @@ function App() {
             <CountryFilter />
           </div>
 
-          <div>
+          {/* <div>
             <Link to="/login">Login</Link>
-          </div>
+          </div> */}
           <hr />
           <br />
 
@@ -64,6 +74,7 @@ function App() {
                           description={data.description}
                           pubDate={data.published_at}
                           img={data.image}
+                          url={data.url}
                         />
                       </item>
                     </Grid>
@@ -81,11 +92,12 @@ function App() {
             component={CountryFilterResults}
           />
           <Switch>
-            <Route path="/login" component={Login} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </Switch>
-        </Router>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </Router>
   );
 }
 

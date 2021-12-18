@@ -25,8 +25,13 @@ function ArticleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <BookmarkAddOutlinedIcon />
-        <Button size="small">Learn More</Button>
+        <button size="small">
+          <BookmarkAddOutlinedIcon />
+        </button>
+
+        <Button size="small" onClick={() => (window.location.href = props.url)}>
+          Learn More
+        </Button>
       </CardActions>
     </Card>
   );
