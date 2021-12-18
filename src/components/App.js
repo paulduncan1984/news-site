@@ -7,14 +7,21 @@ import SearchResults from "./SearchResults";
 import { useDefaultNewsfeed } from "../hooks/api";
 import CountryFilter from "./CountryFilter";
 import CountryFilterResults from "./CountryFilterResults";
+import Login from "./Login";
 // Material UI & Styles
 import "../App.css";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Dashboard from "./Dashboard";
 // Routes
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../Storage/UserSlice";
 
 function App() {
+  const user = useSelector(selectUser);
+
   const { article, isLoaded, error } = useDefaultNewsfeed();
 
   if (error) {
@@ -23,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <Nav />
+      <div>{user ? <Dashboard /> : <Login />}</div>
       <Container fixed>
         <Router>
           <div>
@@ -33,6 +41,12 @@ function App() {
           <div>
             <CountryFilter />
           </div>
+
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
+          <hr />
+          <br />
 
           <Route exact path="/">
             <Grid
@@ -66,6 +80,9 @@ function App() {
             path="/edition/:countryCode"
             component={CountryFilterResults}
           />
+          <Switch>
+            <Route path="/login" component={Login} />
+          </Switch>
         </Router>
       </Container>
     </div>

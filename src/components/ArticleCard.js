@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 
 function ArticleCard(props) {
   return (
@@ -24,7 +25,7 @@ function ArticleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
+        <BookmarkAddOutlinedIcon />
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
