@@ -22,7 +22,6 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../Storage/UserSlice";
 
 function App() {
-  const user = useSelector(selectUser);
   const { article, isLoaded, error } = useDefaultNewsfeed();
 
   if (error) {

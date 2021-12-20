@@ -1,35 +1,31 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../Storage/UserSlice";
-
-import { useSelector } from "react-redux";
-import { selectUser } from "../Storage/UserSlice";
-
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../Storage/UserSlice";
+import { selectBookmark } from "../Storage/bookmarkSlice";
+// Router
+import { useHistory } from "react-router-dom";
+// Components
 import Login from "./Login";
 
 function Dashboard() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector(selectUser);
+  const bookmark = useSelector(selectBookmark);
 
   function handleLogout(e) {
     e.preventDefault();
     dispatch(logout());
+    history.push("/");
   }
-
-  const user = useSelector(selectUser);
+  console.log(bookmark);
   return (
     <div>
-      {/* <div>
-        {user ? <p>You are signed in</p> : <p>you are not signed in</p>}
-      </div>
-      <div>
-        <h1>Welcome back </h1>
-        <button onClick={(e) => handleLogout(e)}>Logout</button>
-      </div> */}
-
       {user ? (
         <div>
-          <h1>Welcome back</h1>
-          <p>Here are your bookmarks:</p>
+          <h1>Welcome back {user.name}</h1>
+          <p>Here are your bookmarks: {bookmark}</p>
           <button onClick={(e) => handleLogout(e)}>Logout</button>
         </div>
       ) : (
