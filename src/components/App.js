@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // Components
 import ArticleCard from "./ArticleCard";
 import Nav from "./Nav";
@@ -17,12 +17,33 @@ import Container from "@mui/material/Container";
 import Dashboard from "./Dashboard";
 // Routes
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
-
-import { useSelector } from "react-redux";
-import { selectUser } from "../Storage/UserSlice";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addBookmark } from "../Storage/bookmarkSlice";
+import { selectBookmark } from "../Storage/bookmarkSlice";
 
 function App() {
-  const { article, isLoaded, error } = useDefaultNewsfeed();
+  // State for default news feed
+  const { article, isLoaded, error, location } = useDefaultNewsfeed();
+  // State for bookmarks
+  const [bookmarkList, setBookmarkList] = useState({});
+
+  // Bookmark functionality
+  const bookmark = useSelector(selectBookmark);
+  const dispatch = useDispatch();
+
+  function addBookmark(article) {
+    const newBookmarks = [...bookmark, article];
+    console.log(newBookmarks);
+    // setBookmarkList({ ...newBookmarks });
+    // console.log(bookmarkList);
+    // dispatch(
+    //   addBookmark({
+    //     // bookmark: { ...newBookmarks },
+    //     bookmark: newBookmarks,
+    //   })
+    // );
+  } // EO Handle Bookmark
 
   if (error) {
     return <div>Error loading your news stream: {error.message}</div>;
@@ -34,6 +55,7 @@ function App() {
         <div>
           <NavSearch />
         </div>
+
         <br />
         <br />
         <Container fixed>
@@ -54,6 +76,7 @@ function App() {
                           pubDate={data.published_at}
                           img={data.image}
                           url={data.url}
+                          handleBookmarkClick={addBookmark}
                         />
                       </item>
                     </Grid>
