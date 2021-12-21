@@ -17,6 +17,10 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 // Routers
 import { Link } from "react-router-dom";
 
+// Redux
+import { useSelector } from "react-redux";
+import { selectUser } from "../Storage/UserSlice";
+
 // State and hooks
 import { useState } from "react";
 import { HashRouter as Router, useParams, useHistory } from "react-router-dom";
@@ -73,6 +77,9 @@ function NavSearch() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const user = useSelector(selectUser);
+  const dashboardText = user ? "Dashboard" : "Login";
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -122,7 +129,7 @@ function NavSearch() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/dashboard">{dashboardText}</Link>
       </MenuItem>
     </Menu>
   );
@@ -154,7 +161,7 @@ function NavSearch() {
         >
           <AccountCircle />
         </IconButton>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/dashboard">{dashboardText}</Link>
       </MenuItem>
     </Menu>
   );

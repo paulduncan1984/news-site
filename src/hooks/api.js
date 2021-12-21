@@ -34,7 +34,7 @@ function useDefaultNewsfeed() {
 
   // Axios get for article data, taking in 'location' variable to URL
 
-  const fetchArticleUrl = `http://api.mediastack.com/v1/news?countries=gb&access_key=${API_KEY_MS}`;
+  const fetchArticleUrl = `http://api.mediastack.com/v1/news?countries=${location}&access_key=${API_KEY_MS}`;
 
   // ***** Question for Luke or Milo:  Ask why this doesn't work - attempting to pass in the URL as a variable so I can use it as a dependency in useEffect
 

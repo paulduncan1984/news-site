@@ -9,7 +9,7 @@ import CountryFilter from "./CountryFilter";
 import CountryFilterResults from "./CountryFilterResults";
 import Login from "./Login";
 import NavSearch from "./NavSearch";
-
+import HomeDashboard from "./HomeDashboard";
 // Material UI & Styles
 import "../App.css";
 import Grid from "@mui/material/Grid";
@@ -19,8 +19,8 @@ import Dashboard from "./Dashboard";
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { addBookmark } from "../Storage/bookmarkSlice";
-import { selectBookmark } from "../Storage/bookmarkSlice";
+import { selectBookmark, addBookmark } from "../Storage/bookmarkSlice";
+import { selectUser } from "../Storage/UserSlice";
 
 function App() {
   // State for default news feed
@@ -55,6 +55,7 @@ function App() {
         <div>
           <NavSearch />
         </div>
+        {/* <HomeDashboard /> */}
 
         <br />
         <br />

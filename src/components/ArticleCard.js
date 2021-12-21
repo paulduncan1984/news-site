@@ -7,10 +7,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import { addBookmark } from "../Storage/bookmarkSlice";
-import { selectBookmark } from "../Storage/bookmarkSlice";
+
+import fallback from "../images/fallback.png";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../Storage/UserSlice";
+import { selectBookmark } from "../Storage/bookmarkSlice";
+
+// Components
+import Login from "./Login";
 
 function ArticleCard(props) {
+  const user = useSelector(selectUser);
   // const bookmark = useSelector(selectBookmark);
   // const [bookmarkList, setBookmarkList] = useState({});
 
@@ -34,16 +43,12 @@ function ArticleCard(props) {
   //   // console.log(bookmark);
   // } // EO Handle Bookmark
 
-  // const image = props.img === null ? ;
+  // Deal with broken images
+  const image = props.img === null ? fallback : props.img;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={props.img}
-        alt={props.title}
-      />
+      <CardMedia component="img" height="140" image={image} alt={props.title} />
       <CardContent>
         <Typography
           gutterBottom
