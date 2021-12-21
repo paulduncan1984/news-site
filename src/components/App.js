@@ -32,17 +32,16 @@ function App() {
   const bookmark = useSelector(selectBookmark);
   const dispatch = useDispatch();
 
-  function addBookmark(article) {
+  function addBookmarkFunction(article) {
     const newBookmarks = [...bookmark, article];
     console.log(newBookmarks);
-    setBookmarkList(...newBookmarks);
-    console.log(bookmarkList);
-    // dispatch(
-    //   addBookmark({
-    //     bookmark: [...setBookmarkList],
-    //     // bookmark: newBookmarks,
-    //   })
-    // );
+    // setBookmarkList(...newBookmarks); - delete
+    dispatch(
+      addBookmark({
+        // bookmark: [...setBookmarkList],
+        bookmark: newBookmarks,
+      })
+    );
   } // EO Handle Bookmark
 
   if (error) {
@@ -77,7 +76,7 @@ function App() {
                           pubDate={data.published_at}
                           img={data.image}
                           url={data.url}
-                          handleBookmarkClick={addBookmark}
+                          handleBookmarkClick={addBookmarkFunction}
                         />
                       </item>
                     </Grid>

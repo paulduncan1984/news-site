@@ -5,12 +5,31 @@ import ArticleCard from "./ArticleCard";
 // Material UI & Styles
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { selectBookmark, addBookmark } from "../Storage/bookmarkSlice";
 
 function SearchResults() {
   const params = useParams();
   const { results, isLoaded, error } = useMediaStackSearchResults(
     params.queryText
   );
+
+  function addBookmarkFunction(article) {
+    const newBookmarks = [...bookmark, article];
+    console.log(newBookmarks);
+    // setBookmarkList(...newBookmarks); - delete
+    dispatch(
+      addBookmark({
+        // bookmark: [...setBookmarkList],
+        bookmark: newBookmarks,
+      })
+    );
+  } // EO Handle Bookmark
+
+  // Bookmark functionality
+  const bookmark = useSelector(selectBookmark);
+  const dispatch = useDispatch();
+
   if (error) {
     return <div>Error loading search results: {error.message}</div>;
   }
@@ -29,6 +48,7 @@ function SearchResults() {
                       description={data.description}
                       pubDate={data.published_at}
                       img={data.image}
+                      handleBookmarkClick={addBookmarkFunction}
                     />
                   </item>
                 </Grid>

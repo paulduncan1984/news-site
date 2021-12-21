@@ -19,6 +19,7 @@ import { selectBookmark } from "../Storage/bookmarkSlice";
 import Login from "./Login";
 
 function ArticleCard(props) {
+  const { handleBookmarkClick } = props;
   const user = useSelector(selectUser);
   // const bookmark = useSelector(selectBookmark);
   // const [bookmarkList, setBookmarkList] = useState({});
@@ -63,9 +64,7 @@ function ArticleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <BookmarkAddOutlinedIcon
-          onClick={() => props.handleBookmarkClick(props)}
-        />
+        <BookmarkAddOutlinedIcon onClick={() => handleBookmarkClick(props)} />
 
         <Button size="small" onClick={() => (window.location.href = props.url)}>
           Learn More

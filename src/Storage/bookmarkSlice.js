@@ -21,6 +21,7 @@ export const bookmarkSlice = createSlice({
   reducers: {
     addBookmark: (state, action) => {
       state.bookmark = action.payload.bookmark;
+      console.log(action.payload.bookmark);
     },
     removeBookmark: (state, action) => {
       state.bookmark = []; // This needs developing
