@@ -23,7 +23,7 @@ export const bookmarkSlice = createSlice({
       state.bookmark = action.payload.bookmark;
     },
     removeBookmark: (state, action) => {
-      state.bookmark = [];
+      state.bookmark = []; // This needs developing
     },
     clearBookmark: (state) => {
       state.bookmark = [];

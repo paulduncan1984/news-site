@@ -35,12 +35,12 @@ function App() {
   function addBookmark(article) {
     const newBookmarks = [...bookmark, article];
     console.log(newBookmarks);
-    // setBookmarkList({ ...newBookmarks });
-    // console.log(bookmarkList);
+    setBookmarkList(...newBookmarks);
+    console.log(bookmarkList);
     // dispatch(
     //   addBookmark({
-    //     // bookmark: { ...newBookmarks },
-    //     bookmark: newBookmarks,
+    //     bookmark: [...setBookmarkList],
+    //     // bookmark: newBookmarks,
     //   })
     // );
   } // EO Handle Bookmark

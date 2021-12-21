@@ -1,0 +1,7 @@
+on:
+  push:
+    branches:
+      - master
+env:
+  REACT_APP_MEDIASTACK_API_KEY: ${{ secrets.REACT_APP_MEDIASTACK_API_KEY }}
+  REACT-APP_GEO_API_KEY: ${{ secrets.REACT-APP_GEO_API_KEY }}

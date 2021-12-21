@@ -2,7 +2,12 @@ import React, { useState } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../Storage/UserSlice";
-import { selectBookmark } from "../Storage/bookmarkSlice";
+import {
+  selectBookmark,
+  removeBookmark,
+  clearBookmark,
+} from "../Storage/bookmarkSlice";
+
 // Router
 import { useHistory } from "react-router-dom";
 // Components
@@ -38,7 +43,10 @@ function Dashboard() {
     history.push("/");
   }
 
-  console.log(bookmark.title);
+  function handleClearBookmark() {
+    dispatch(clearBookmark());
+  }
+
   return (
     <div>
       {user ? (
@@ -94,9 +102,21 @@ function Dashboard() {
               ) : (
                 <p>No bookmarks to see...</p>
               )}
-            </Grid>
 
-            {/* {bookmark.title} */}
+              {bookmark === [] ? (
+                <p>You currently have no bookmarks stored.</p>
+              ) : (
+                <Container fixed>
+                  <br />
+                  <br />
+                  <Button variant="contained" onClick={handleClearBookmark}>
+                    Remove all bookmarks
+                  </Button>
+                  <br />
+                  <br />
+                </Container>
+              )}
+            </Grid>
           </Container>
         </div>
       ) : (
