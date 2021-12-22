@@ -1,48 +1,25 @@
-import React, { useState } from "react";
+// React, Routes
+import React from "react";
+import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
 // Components
 import ArticleCard from "./ArticleCard";
-import Nav from "./Nav";
-import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
-import { useDefaultNewsfeed } from "../hooks/api";
-import CountryFilter from "./CountryFilter";
 import CountryFilterResults from "./CountryFilterResults";
 import Login from "./Login";
 import NavSearch from "./NavSearch";
-import HomeDashboard from "./HomeDashboard";
-// Material UI & Styles
+import Dashboard from "./Dashboard";
+import BookmarkIcons from "./BookmarkIcons";
+import Loading from "./Loading";
+// Hooks
+import { useDefaultNewsfeed } from "../hooks/api";
+// MUI & Styles
 import "../App.css";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Dashboard from "./Dashboard";
-// Routes
-import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { selectBookmark, addBookmark } from "../Storage/bookmarkSlice";
-import { selectUser } from "../Storage/UserSlice";
+import Box from "@mui/material/Box";
 
 function App() {
-  // State for default news feed
-  const { article, isLoaded, error, location } = useDefaultNewsfeed();
-  // State for bookmarks
-  const [bookmarkList, setBookmarkList] = useState({});
-
-  // Bookmark functionality
-  const bookmark = useSelector(selectBookmark);
-  const dispatch = useDispatch();
-
-  function addBookmarkFunction(article) {
-    const newBookmarks = [...bookmark, article];
-    console.log(newBookmarks);
-    // setBookmarkList(...newBookmarks); - delete
-    dispatch(
-      addBookmark({
-        // bookmark: [...setBookmarkList],
-        bookmark: newBookmarks,
-      })
-    );
-  } // EO Handle Bookmark
+  const { article, isLoaded, error } = useDefaultNewsfeed();
 
   if (error) {
     return <div>Error loading your news stream: {error.message}</div>;
@@ -51,53 +28,51 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div>
-          <NavSearch />
-        </div>
-        {/* <HomeDashboard /> */}
+        <NavSearch />
 
-        <br />
-        <br />
-        <Container fixed>
-          <Route exact path="/">
-            <Grid
-              container
-              rowSpacing={3}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              {isLoaded ? (
-                article.map((data) => {
-                  return (
-                    <Grid item xs={4}>
-                      <item>
-                        <ArticleCard
-                          title={data.title}
-                          description={data.description}
-                          pubDate={data.published_at}
-                          img={data.image}
-                          url={data.url}
-                          handleBookmarkClick={addBookmarkFunction}
-                        />
-                      </item>
-                    </Grid>
-                  );
-                })
-              ) : (
-                <p>Loading...</p>
-              )}
-            </Grid>
-          </Route>
+        <Box my={{ xs: 10, sm: 5, m: 10, lg: 10 }}>
+          <Container fixed>
+            <Route exact path="/">
+              <Grid
+                container
+                rowSpacing={3}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                justify="center"
+              >
+                {isLoaded ? (
+                  article.map((data) => {
+                    return (
+                      <Grid item xs={4}>
+                        <item>
+                          <ArticleCard
+                            title={data.title}
+                            description={data.description}
+                            img={data.image}
+                            url={data.url}
+                            BookmarkIconToggle={BookmarkIcons}
+                          />
+                        </item>
+                      </Grid>
+                    );
+                  })
+                ) : (
+                  <Loading />
+                )}
+              </Grid>
+            </Route>
 
-          <Route path="/search/:queryText" component={SearchResults} />
-          <Route
-            path="/edition/:countryCode"
-            component={CountryFilterResults}
-          />
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
-          </Switch>
-        </Container>
+            <Route path="/search/:queryText" component={SearchResults} />
+            <Route
+              path="/edition/:countryCode"
+              component={CountryFilterResults}
+            />
+
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/dashboard" component={Dashboard} />
+            </Switch>
+          </Container>
+        </Box>
       </div>
     </Router>
   );

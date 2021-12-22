@@ -1,23 +1,41 @@
-import React from "react";
-// MUI & image
+import React, { useState } from "react";
+// MUI & images
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import BookmarkRemoveOutlinedIcon from "@mui/icons-material/BookmarkRemoveOutlined";
 import fallback from "../images/fallback.png";
-// Redux & Slices
-import { useSelector } from "react-redux";
-import { selectUser } from "../Storage/UserSlice";
-// Components
-import BookmarkIcons from "./BookmarkIcons";
+// Redux & slices
+import { useDispatch, useSelector } from "react-redux";
+import { removeBookmark, selectBookmark } from "../Storage/bookmarkSlice";
 
-function ArticleCard(props) {
-  const user = useSelector(selectUser);
+/* Purpose of component:
+This component is used for displaying bookmarked articles in the Dashboard with the function to remove bookmarls
+*/
+
+function BookmarkCard(props) {
+  const dispatch = useDispatch();
+  const bookmark = useSelector(selectBookmark);
 
   // Deal with broken images
   const image = props.img === null ? fallback : props.img;
+
+  function handleRemoveBookmark(article) {
+    console.log("Remove bookmark");
+    const removal = bookmark.filter(
+      (favourite) => favourite.title !== article.title
+    );
+    console.log(removal);
+    console.log(bookmark);
+    dispatch(
+      removeBookmark({
+        bookmark: removal,
+      })
+    );
+  } // EO handleRemoveBookmark
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -36,7 +54,9 @@ function ArticleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        {user ? <BookmarkIcons props={props} /> : null}
+        <BookmarkRemoveOutlinedIcon
+          onClick={() => handleRemoveBookmark(props)}
+        />
 
         <Button size="small" onClick={() => (window.location.href = props.url)}>
           Learn More
@@ -46,4 +66,4 @@ function ArticleCard(props) {
   );
 }
 
-export default ArticleCard;
+export default BookmarkCard;

@@ -24,19 +24,12 @@ export const bookmarkSlice = createSlice({
       console.log(action.payload.bookmark);
     },
     removeBookmark: (state, action) => {
-      state.bookmark = []; // This needs developing
-    },
-    clearBookmark: (state) => {
-      state.bookmark = [];
+      state.bookmark = action.payload.bookmark;
     },
   },
 });
 
-export const {
-  addBookmark,
-  removeBookmark,
-  clearBookmark,
-} = bookmarkSlice.actions;
+export const { addBookmark, removeBookmark } = bookmarkSlice.actions;
 
 export const selectBookmark = (state) => state.bookmark.bookmark;
 

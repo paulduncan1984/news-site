@@ -51,14 +51,9 @@ function CountryFilter() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => handleSelection("au")}>
-          Australian edition
-        </MenuItem>
+        <MenuItem onClick={() => handleSelection("au")}>AU edition</MenuItem>
         <MenuItem onClick={() => handleSelection("gb")}>UK edition</MenuItem>
         <MenuItem onClick={() => handleSelection("us")}>US edition</MenuItem>
-        <MenuItem onClick={() => handleSelection("au,gb,us")}>
-          International edition
-        </MenuItem>
       </Menu>
     </Router>
   );

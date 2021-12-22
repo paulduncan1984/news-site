@@ -1,19 +1,14 @@
-import React, { useState } from "react";
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../Storage/UserSlice";
-import {
-  selectBookmark,
-  removeBookmark,
-  clearBookmark,
-} from "../Storage/bookmarkSlice";
-
+import React from "react";
 // Router
 import { useHistory } from "react-router-dom";
+// Redux & Slices
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../Storage/UserSlice";
+import { selectBookmark } from "../Storage/bookmarkSlice";
 // Components
 import Login from "./Login";
-import ArticleCard from "./ArticleCard";
-// MUI
+import BookmarkCard from "./BookmarkCard";
+// MUI & images
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -21,7 +16,6 @@ import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-// Image
 import fallback from "../images/fallback.png";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -43,16 +37,11 @@ function Dashboard() {
     history.push("/");
   }
 
-  function handleClearBookmark() {
-    dispatch(clearBookmark());
-  }
-
   return (
     <div>
       {user ? (
         <div>
           <Container fixed>
-            {/* {user ? <h1>Hello {user.name}</h1> : <h1>Hello guest</h1>} */}
             <h1>Welcome back {user.name}</h1>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
@@ -70,7 +59,7 @@ function Dashboard() {
                   </Item>
                 </Grid>
                 <Grid item xs={8}>
-                  <Item>Lorem ipsum</Item>
+                  <Item></Item>
                 </Grid>
               </Grid>
             </Box>
@@ -87,13 +76,12 @@ function Dashboard() {
                   return (
                     <Grid item xs={4}>
                       <item>
-                        <ArticleCard
+                        <BookmarkCard
                           title={data.title}
                           description={data.description}
                           pubDate={data.published_at}
                           img={image}
                           url={data.url}
-                          //   handleBookmarkClick={addBookmark}
                         />
                       </item>
                     </Grid>
@@ -109,9 +97,6 @@ function Dashboard() {
                 <Container fixed>
                   <br />
                   <br />
-                  <Button variant="contained" onClick={handleClearBookmark}>
-                    Remove all bookmarks
-                  </Button>
                   <br />
                   <br />
                 </Container>

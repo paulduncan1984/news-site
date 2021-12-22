@@ -1,5 +1,5 @@
 // MUI
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,25 +9,15 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
 // Routers
-import { Link } from "react-router-dom";
-
-// Redux
+import { useHistory, Link } from "react-router-dom";
+// Redux & Slices
 import { useSelector } from "react-redux";
 import { selectUser } from "../Storage/UserSlice";
-
-// State and hooks
-import { useState } from "react";
-import { HashRouter as Router, useParams, useHistory } from "react-router-dom";
-import { useCountryFilter } from "../hooks/api";
-
 // Components
-import SideNav from "./SideNav";
 import CountryFilter from "./CountryFilter";
 
 const Search = styled("div")(({ theme }) => ({
@@ -99,7 +89,6 @@ function NavSearch() {
 
   // State and handlers for search
   const [searchText, setSearchText] = useState("");
-
   const history = useHistory();
 
   function handleChange(ev) {
@@ -170,16 +159,6 @@ function NavSearch() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-
           <Typography
             variant="h6"
             noWrap
@@ -202,7 +181,6 @@ function NavSearch() {
               />
             </Search>
           </form>
-          {/* <CountryFilter /> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <CountryFilter />
