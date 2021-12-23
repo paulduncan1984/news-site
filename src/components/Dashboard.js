@@ -13,7 +13,6 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import fallback from "../images/fallback.png";
@@ -47,9 +46,18 @@ function Dashboard() {
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <Item pt={2}>
-                    <h3>Personal information</h3>
+                    <h2>Personal information</h2>
                     <p>Name: {user.name}</p>
                     <p>Email: {user.email}</p>
+                  </Item>
+                </Grid>
+                <Grid item xs={8}>
+                  <Item>
+                    <h2>NT9ON Dashboard</h2>
+                    <p>
+                      The NT9ON dashboard allows you to manage your personal
+                      information and bookmarks.{" "}
+                    </p>
                     <Button
                       variant="contained"
                       onClick={(e) => handleLogout(e)}
@@ -57,9 +65,6 @@ function Dashboard() {
                       Logout
                     </Button>
                   </Item>
-                </Grid>
-                <Grid item xs={8}>
-                  <Item></Item>
                 </Grid>
               </Grid>
             </Box>

@@ -12,6 +12,7 @@ import Dashboard from "./Dashboard";
 import BookmarkIcons from "./BookmarkIcons";
 import Loading from "./Loading";
 import DefaultNewsFeed from "./DefaultNewsFeed";
+import Footer from "./Footer";
 // Hooks
 import { useDefaultNewsfeed } from "../hooks/api";
 // MUI & Styles
@@ -75,6 +76,7 @@ function App() {
           </Container>
         </Box>
       </div>
+      <Footer />
     </Router>
   );
 }
