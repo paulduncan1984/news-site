@@ -1,4 +1,8 @@
+// React, Routes, pagination
+import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 import { useParams } from "react-router-dom";
+// Hooks
 import { useMediaStackSearchResults } from "../hooks/api";
 // Components
 import ArticleCard from "./ArticleCard";
@@ -6,7 +10,6 @@ import BookmarkIcons from "./BookmarkIcons";
 import Loading from "./Loading";
 // Material UI & Styles
 import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
 
 function SearchResults() {
   const params = useParams();
@@ -14,16 +17,27 @@ function SearchResults() {
     params.queryText
   );
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const articlesPerPage = 9;
+  const pagesVisited = pageNumber * articlesPerPage;
+
+  const pageCount = Math.ceil(results.length / articlesPerPage);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   if (error) {
     return <div>Error loading search results: {error.message}</div>;
   }
 
   return (
     <div>
-      <Container fixed>
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {isLoaded ? (
-            results.map((data) => {
+      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        {isLoaded ? (
+          results
+            .slice(pagesVisited, pagesVisited + articlesPerPage)
+            .map((data) => {
               return (
                 <Grid item xs={4}>
                   <item>
@@ -38,11 +52,22 @@ function SearchResults() {
                 </Grid>
               );
             })
-          ) : (
-            <Loading />
-          )}
-        </Grid>
-      </Container>
+        ) : (
+          <Loading />
+        )}
+      </Grid>
+      <br />
+      <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationBttns"}
+        previousLinkClassName={"previousBttn"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
     </div>
   );
 } // EO Search results

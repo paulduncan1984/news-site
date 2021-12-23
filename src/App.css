@@ -40,3 +40,31 @@
 body {
   background-color: #f1f1f1;
 }
+
+.paginationBttns {
+  width: 90%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border: #282c34;
+  border: 1px solid #afafad;
+  color: #282c34;
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.paginationBttns a:hover {
+  background-color: #e8e8e3;
+  /* color: white; */
+}
+
+.paginationActive a {
+  /* background-color: #e8e8e3; */
+  font-weight: bold;
+}

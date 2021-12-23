@@ -1,6 +1,7 @@
-// React, Routes
-import React from "react";
+// React, Routes, pagination
+import React, { useState } from "react";
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 // Components
 import ArticleCard from "./ArticleCard";
 import SearchResults from "./SearchResults";
@@ -10,6 +11,7 @@ import NavSearch from "./NavSearch";
 import Dashboard from "./Dashboard";
 import BookmarkIcons from "./BookmarkIcons";
 import Loading from "./Loading";
+import DefaultNewsFeed from "./DefaultNewsFeed";
 // Hooks
 import { useDefaultNewsfeed } from "../hooks/api";
 // MUI & Styles
@@ -19,11 +21,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
 function App() {
-  const { article, isLoaded, error } = useDefaultNewsfeed();
-
-  if (error) {
-    return <div>Error loading your news stream: {error.message}</div>;
-  }
+  // const { article, isLoaded, error } = useDefaultNewsfeed(); - possibly delete
 
   return (
     <Router>
@@ -33,13 +31,13 @@ function App() {
         <Box my={{ xs: 10, sm: 5, m: 10, lg: 10 }}>
           <Container fixed>
             <Route exact path="/">
-              <Grid
+              {/* <Grid
                 container
                 rowSpacing={3}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 justify="center"
-              >
-                {isLoaded ? (
+              > */}
+              {/* {isLoaded ? (
                   article.map((data) => {
                     return (
                       <Grid item xs={4}>
@@ -57,8 +55,11 @@ function App() {
                   })
                 ) : (
                   <Loading />
-                )}
-              </Grid>
+                )} */}
+
+              {/* {displayArticles} */}
+              <DefaultNewsFeed />
+              {/* </Grid> */}
             </Route>
 
             <Route path="/search/:queryText" component={SearchResults} />
