@@ -2,7 +2,7 @@
 
 This site is the final project for the General Assembly React course.
 
-GH Page: [https://paulduncan1984.github.io/news-site] (https://paulduncan1984.github.io/news-site)
+GH Page: https://paulduncan1984.github.io/news-site
 
 ## Overview
 
